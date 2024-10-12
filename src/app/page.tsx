@@ -1,3 +1,9 @@
+import { Widget } from "~/components/Widget";
+
 export default function Home() {
-  return <div>Hello world</div>;
+  return (
+    <div>
+      <Widget />
+    </div>
+  );
 }
