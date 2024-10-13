@@ -11,26 +11,38 @@ const StyledWrapper = styled.section`
   height: 100%;
 
   @media ${media.isNotMobile} {
-    display: grid;
-    grid-template-rows: repeat(2, minmax(100%, 1fr));
+    display: flex;
+    flex-direction: column;
   }
 `;
 
 const StyledGridRow = styled.div`
-  height: 100%;
+  position: relative;
+  padding: 48px 0;
+  min-height: 50%;
   display: flex;
   align-items: center;
-  justiyf-content: center;
-  border: rgba(0, 0, 0, 0.1);
+  justify-content: center;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+`;
+
+const StyledTitle = styled.div`
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  font-size: small;
+  font-weight: bold;
 `;
 
 export default function Home() {
   return (
     <StyledWrapper>
       <StyledGridRow>
+        <StyledTitle>Using Api Endpoint</StyledTitle>
         <ApiCommissionWidget />
       </StyledGridRow>
       <StyledGridRow>
+        <StyledTitle>Using Server Action</StyledTitle>
         <ServerActionCommissionWidget />
       </StyledGridRow>
     </StyledWrapper>

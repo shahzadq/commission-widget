@@ -22,6 +22,8 @@ const StyledWidgetContent = styled.div`
   display: flex;
   flex-direction: column;
   gap: 16px;
+  height: 100%;
+  overflow: hidden;
 
   @media ${media.isNotMobile} {
     flex-direction: row;
@@ -82,6 +84,8 @@ const StyledResultsWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow-x: hidden;
+  overflow-y: auto;
 `;
 
 const StyledNothingToShow = styled.div`
