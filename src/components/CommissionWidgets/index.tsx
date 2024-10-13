@@ -11,12 +11,12 @@ import { usePostCalculateCommission } from "~/hooks/usePostCalculateCommission";
 import { revenueSchema } from "~/schemas/commission";
 import { Widget, WidgetTitle } from "~/components/Widgets";
 import styled from "styled-components";
-import Image from "next/image";
 import { Spinner } from "~/components/Spinner";
 import { Data } from "./Data";
 import { Message } from "~/components/Message";
 import { calculateCommissionAction } from "~/actions/commission";
 import { media } from "~/constants";
+import { Icon } from "~/components/Icon";
 
 const StyledWidgetContent = styled.div`
   display: flex;
@@ -164,11 +164,10 @@ const CommissionWidget = (props: {
             <Data {...props.data} />
           ) : (
             <StyledNothingToShow>
-              <Image
-                height={48}
-                width={48}
-                src="https://img.icons8.com/material-outlined/4065ff/48/nothing-found.png"
-                alt="nothing-found"
+              <Icon
+                name="nothing-found"
+                color="4065ff"
+                alt="nothing found icon"
               />
               <Message>Nothing to show yet</Message>
             </StyledNothingToShow>

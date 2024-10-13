@@ -1,24 +1,20 @@
 "use client";
 
-import Image from "next/image";
 import type { ComponentProps } from "react";
 import styled from "styled-components";
+import { Icon } from "./Icon";
 
-const StyledSpinner = styled(Image)`
+const StyledSpinner = styled(Icon)`
   animation: spin 1s linear infinite;
 `;
 
 export const Spinner = (
-  props: Omit<
-    ComponentProps<typeof StyledSpinner>,
-    "src" | "alt" | "width" | "height"
-  >
+  props: Omit<ComponentProps<typeof StyledSpinner>, "name" | "alt" | "color">
 ) => (
   <StyledSpinner
-    width={48}
-    height={48}
-    src="https://img.icons8.com/material/4065ff/48/iphone-spinner--v2.png"
-    alt="loading"
+    name="iphone-spinner--v2"
+    color="4065ff"
+    alt="spinner-icon"
     {...props}
   />
 );
