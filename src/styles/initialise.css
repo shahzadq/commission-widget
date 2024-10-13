@@ -41,11 +41,8 @@ html {
 /*
      * Remove default margin
      */
-body,
-#root {
+body {
   margin: 0;
-  width: 100vw;
-  height: 100vh;
 }
 
 /*
@@ -245,7 +242,7 @@ code,
 kbd,
 pre,
 samp {
-  font-family: monospace, monospace;
+  font-family: monospace;
   /* 1 */
   font-size: 1em;
   /* 2 */

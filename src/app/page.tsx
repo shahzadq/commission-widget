@@ -3,8 +3,7 @@
 import styled from "styled-components";
 import { CommissionWidget } from "~/components/CommissionWidget";
 
-const StyledWrapper = styled.div`
-  width: 100%;
+const StyledWrapper = styled.section`
   height: 100%;
   display: flex;
   align-items: center;

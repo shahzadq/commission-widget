@@ -1,12 +1,83 @@
 "use client";
 
-import { type ChangeEvent, type FormEvent, useState } from "react";
+import { type ChangeEvent, type FormEvent, useEffect, useState } from "react";
 import { usePostCalculateCommission } from "~/hooks/usePostCalculateCommission";
 import { revenueSchema } from "~/schemas/commission";
 import { Widget, WidgetTitle } from "./Widgets";
 import styled from "styled-components";
 import Image from "next/image";
 import { Spinner } from "./Spinner";
+import { mapKeys } from "~/utils/objects";
+
+const StyledMessage = styled.div`
+  font-size: small;
+  color: rgba(0, 0, 0, 0.75);
+`;
+
+const StyledData = styled.div`
+  width: 100%;
+  height: 100%;
+`;
+
+const StyledTotal = styled.div`
+  font-size: 48px;
+  font-weight: bold;
+`;
+
+const StyledBreakdownWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+`;
+
+const StyledRow = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+const StyledBreakdown = styled(StyledRow)<{ greaterThan0: boolean }>`
+  padding: 4px 8px;
+  background-color: ${(props) =>
+    props.greaterThan0 ? "var(--brand-color-blue)" : "rgba(0, 0, 0, 0.05)"};
+  color: ${(props) => (props.greaterThan0 ? "#fff" : "#000")};
+  border-radius: 4px;
+`;
+
+const StyledBreakdownHeadersWrapper = styled(StyledRow)``;
+
+const bands = [
+  "<= £5000",
+  "£5000 - £10000",
+  "£10000 - £15000",
+  "£15000 - £20000",
+  ">= £20000",
+];
+
+const Data = (
+  props: Exclude<
+    ReturnType<typeof usePostCalculateCommission>["data"],
+    undefined
+  >
+) => {
+  return (
+    <StyledData>
+      <StyledTotal>£{props.total}</StyledTotal>
+      <StyledBreakdownWrapper>
+        <StyledBreakdownHeadersWrapper>
+          <StyledMessage>Band</StyledMessage>
+          <StyledMessage>Commission</StyledMessage>
+        </StyledBreakdownHeadersWrapper>
+        {mapKeys(props.breakdown, (key, value, idx) => (
+          <StyledBreakdown key={key} greaterThan0={value > 0}>
+            <div>{bands[idx]}</div>
+            <div>£{value}</div>
+          </StyledBreakdown>
+        ))}
+      </StyledBreakdownWrapper>
+    </StyledData>
+  );
+};
 
 const StyledWidgetContent = styled.div`
   display: flex;
@@ -61,14 +132,14 @@ const StyledInput = styled.input`
 `;
 
 const StyledButton = styled.button`
-  margin-top: 8px;
+  margin-top: 16px;
 `;
 
 const StyledResultsWrapper = styled.div`
   width: 100%;
   border: var(--border-regular);
   border-radius: 4px;
-  padding: 8px;
+  padding: 8px 16px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -86,21 +157,33 @@ const StyledNothingToShow = styled.div`
   }
 `;
 
-const StyledMessage = styled.div`
-  font-size: small;
-  color: rgba(0, 0, 0, 0.75);
-`;
-
 const StyledSpinner = styled(Spinner)`
   width: 32px;
   height: 32px;
 `;
 
+const StyledError = styled.div`
+  color: var(--brand-color-red);
+  font-size: small;
+  font-weight: bold;
+  margin-top: 8px;
+`;
+
 export const CommissionWidget = () => {
   const [inputs, setInputs] = useState({ revenue: "" });
   const [revenue, setRevenue] = useState<number>();
+  const [error, setError] = useState<string>();
 
-  const { data, error, isLoading } = usePostCalculateCommission(revenue);
+  const {
+    data,
+    error: apiError,
+    isLoading,
+  } = usePostCalculateCommission(revenue);
+
+  useEffect(() => {
+    // if we get an api error, set it
+    setError(apiError);
+  }, [apiError]);
 
   const handleInputChange =
     (key: keyof typeof inputs) => (e: ChangeEvent<HTMLInputElement>) => {
@@ -112,6 +195,7 @@ export const CommissionWidget = () => {
     // only if we have a valid revenue input, change state
     const { success, data } = revenueSchema.safeParse(inputs.revenue);
     if (success) setRevenue(data);
+    else setError("That doesn't look like a number more than one");
   };
 
   return (
@@ -129,12 +213,13 @@ export const CommissionWidget = () => {
             />
           </StyledInputWrapper>
           <StyledButton type="submit">Estimate</StyledButton>
+          {error && <StyledError>{error}</StyledError>}
         </StyledForm>
         <StyledResultsWrapper>
           {isLoading ? (
             <StyledSpinner />
           ) : data ? (
-            "data"
+            <Data {...data} />
           ) : (
             <StyledNothingToShow>
               <Image
