@@ -6,8 +6,8 @@ export const media = {
 } as const;
 
 // in production use the vercel auto generated url base
-// https://vercel.com/docs/projects/environment-variables/framework-environment-variables
+// should really come from an .env file
 export const urlBase =
   process.env.NODE_ENV === "development"
     ? ("http://localhost:3000" as const)
-    : (`https://${process.env.NEXT_PUBLIC_VERCEL_URL}` as const);
+    : ("https://commission-widget.vercel.app" as const);
