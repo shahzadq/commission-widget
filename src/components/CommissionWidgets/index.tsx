@@ -79,6 +79,7 @@ const StyledButton = styled.button`
 const StyledResultsWrapper = styled.div`
   width: 100%;
   border: var(--border-regular);
+  background-color: var(--brand-color-grey);
   border-radius: 4px;
   padding: 8px 16px;
   display: flex;

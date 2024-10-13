@@ -7,7 +7,7 @@ const StyledWidget = styled.div`
   max-height: 100%;
   display: flex;
   flex-direction: column;
-  padding: 16px 24px;
+  padding: 24px;
   border-radius: 8px;
   border: var(--border-regular);
   background-color: #fff;
@@ -24,5 +24,5 @@ export const Widget = (props: ComponentProps<typeof StyledWidget>) => (
 export const WidgetTitle = styled.div`
   font-size: 1.5rem;
   font-weight: bold;
-  margin-bottom: 8px;
+  margin-bottom: 16px;
 `;

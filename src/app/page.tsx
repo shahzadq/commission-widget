@@ -19,11 +19,15 @@ const StyledWrapper = styled.section`
 const StyledGridRow = styled.div`
   position: relative;
   padding: 48px 0;
-  min-height: 50%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   border: 1px solid rgba(0, 0, 0, 0.1);
+
+  @media ${media.isNotMobile} {
+    height: 50%;
+  }
 `;
 
 const StyledTitle = styled.div`
