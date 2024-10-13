@@ -120,12 +120,19 @@ const CommissionWidget = (props: {
   onFormSubmit: (revenue: number) => void;
 }) => {
   const [inputs, setInputs] = useState({ revenue: "" });
+  // allow us to manipulate values locally if needed
   const [error, setError] = useState(props.error);
+  const [data, setData] = useState(props.data);
 
   useEffect(() => {
     // when the passed error changes, update it locally
     setError(props.error);
   }, [props.error]);
+
+  useEffect(() => {
+    // when the data in props update, update it locally
+    setData(props.data);
+  }, [props.data]);
 
   const handleInputChange =
     (key: keyof typeof inputs) => (e: ChangeEvent<HTMLInputElement>) => {
@@ -137,7 +144,11 @@ const CommissionWidget = (props: {
     // only if we have a valid revenue input, change state
     const { success, data } = revenueSchema.safeParse(inputs.revenue);
     if (success) props.onFormSubmit(data);
-    else setError("That doesn't look like a number more than one");
+    else {
+      // reset data so the data section matches the current input state
+      setData(undefined);
+      setError("That doesn't look like a number more than one");
+    }
   };
 
   return (
@@ -160,8 +171,8 @@ const CommissionWidget = (props: {
         <StyledResultsWrapper>
           {props.isLoading ? (
             <StyledSpinner />
-          ) : props.data ? (
-            <Data {...props.data} />
+          ) : data ? (
+            <Data {...data} />
           ) : (
             <StyledNothingToShow>
               <Icon
