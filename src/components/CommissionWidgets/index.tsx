@@ -165,9 +165,8 @@ const CommissionWidget = (props: {
           ) : (
             <StyledNothingToShow>
               <Icon
-                name="nothing-found"
-                color="4065ff"
-                alt="nothing found icon"
+                icon="search-slash"
+                style={{ color: "var(--brand-color-blue)" }}
               />
               <Message>Nothing to show yet</Message>
             </StyledNothingToShow>

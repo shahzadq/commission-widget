@@ -6,15 +6,9 @@ import { Icon } from "./Icon";
 
 const StyledSpinner = styled(Icon)`
   animation: spin 1s linear infinite;
+  color: var(--brand-color-blue);
 `;
 
 export const Spinner = (
-  props: Omit<ComponentProps<typeof StyledSpinner>, "name" | "alt" | "color">
-) => (
-  <StyledSpinner
-    name="iphone-spinner--v2"
-    color="4065ff"
-    alt="spinner-icon"
-    {...props}
-  />
-);
+  props: Omit<ComponentProps<typeof StyledSpinner>, "icon">
+) => <StyledSpinner icon="loader-circle" {...props} />;
