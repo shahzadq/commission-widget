@@ -6,14 +6,12 @@ const bandRange = 5000 as const;
 
 export const calculateCommissionBreakdown = (revenue: number) =>
   commissionRateToBand
-    .map((commissionRate, i) => {
+    .map((commissionRate, idx) => {
       // how much revenue is in the band
       // if the band is anything but the last one comapre against the band range otherwise for the last band just use whatever revenue is left
       const revenueInBand =
-        i !== commissionRateToBand.length - 1
-          ? revenue >= bandRange
-            ? bandRange
-            : revenue
+        idx !== commissionRateToBand.length - 1 && revenue >= bandRange
+          ? bandRange
           : revenue;
       // remove the amount from the total revenue for next cycle
       // biome-ignore lint/style/noParameterAssign: biome complains that we're reassigning a parameter
