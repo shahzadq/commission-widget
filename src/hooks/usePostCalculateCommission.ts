@@ -30,7 +30,7 @@ export const usePostCalculateCommission = (revenue?: number) => {
       const data = await res.json();
 
       if (data.type === "error") setError(data.message);
-      else setData(data.commission);
+      else setData(data.data.commission);
     } catch {
       setError("Something went wrong. Try reloading this page.");
     }
