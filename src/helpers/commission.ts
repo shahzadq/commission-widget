@@ -21,14 +21,14 @@ export const calculateCommissionBreakdown = (revenue: number) =>
 
 // calculate total commission by mapping over calculateCommissionBreakdown return
 // and adding together all the values
-export const calculateTotalCommission = (
+export const calculateCommissionTotal = (
   breakdown: ReturnType<typeof calculateCommissionBreakdown>
 ) => mapKeys(breakdown, (_, value) => value).reduce((a, v) => (a += v));
 
 // generic function to run both of the above functions more concisely
 export const calculateCommission = (revenue: number) => {
   const breakdown = calculateCommissionBreakdown(revenue);
-  const total = calculateTotalCommission(breakdown);
+  const total = calculateCommissionTotal(breakdown);
 
   return { breakdown, total };
 };
