@@ -42,7 +42,7 @@ export default function Home() {
   return (
     <StyledWrapper>
       <StyledGridRow>
-        <StyledTitle>Using Api Endpoint</StyledTitle>
+        <StyledTitle>Using API Endpoint</StyledTitle>
         <ApiCommissionWidget />
       </StyledGridRow>
       <StyledGridRow>

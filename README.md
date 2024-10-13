@@ -26,3 +26,9 @@ I considered four different apporaches to styling in this project: `TailwindCSS`
 ### Linting and Formatting
 
 Initially, I wasn't going to include a linter or formatter in this project, but after making some rookie mistakes in best practises, I decided to use `biome` which includes both a formatter and linter.
+
+## Other
+
+### Multiple Widgets
+
+In my submission, I chose to include 2 different widget components, one using an API endpoint and the other using a server action to demonstrate my capacity to do both. I also considered including a third variation using a querying library like `react-query` but decided not to.
