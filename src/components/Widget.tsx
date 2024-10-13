@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { type FormEvent, useState } from "react";
 import { usePostCalculateCommission } from "~/hooks/usePostCalculateCommission";
 import { revenueSchema } from "~/schemas/commission";
 
@@ -8,17 +8,18 @@ export const Widget = () => {
   const [inputs, setInputs] = useState({ revenue: "" });
   const [revenue, setRevenue] = useState<number>();
 
-  useEffect(() => {
-    // track inputs and only if we have a valid revenue input, change state
+  const { data, error, isLoading } = usePostCalculateCommission(revenue);
+
+  const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    // only if we have a valid revenue input, change state
     const { success, data } = revenueSchema.safeParse(inputs.revenue);
     if (success) setRevenue(data);
-  }, [inputs]);
-
-  const { data, error, isLoading } = usePostCalculateCommission(revenue);
+  };
 
   return (
     <div>
-      <form>
+      <form onSubmit={handleFormSubmit}>
         <input
           type="number"
           value={inputs.revenue}
