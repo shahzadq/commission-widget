@@ -27,6 +27,11 @@ button {
   font-weight: bold;
 }
 
+button:disabled {
+  opacity: 0.75;
+  user-select: none;
+}
+
 input {
   &:focus-visible {
     outline: none;

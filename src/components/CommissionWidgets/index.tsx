@@ -165,7 +165,9 @@ const CommissionWidget = (props: {
               onChange={handleInputChange("revenue")}
             />
           </StyledInputWrapper>
-          <StyledButton type="submit">Estimate</StyledButton>
+          <StyledButton type="submit" disabled={props.isLoading}>
+            Estimate
+          </StyledButton>
           {error && <StyledError>{error}</StyledError>}
         </StyledForm>
         <StyledResultsWrapper>
