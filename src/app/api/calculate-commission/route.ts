@@ -1,10 +1,8 @@
 import { z } from "zod";
 import { calculateCommission } from "~/helpers/commission";
+import { revenueSchema } from "~/schemas/commission";
 
-const bodyValidator = z.object({
-  // cant have a negative revenue
-  revenue: z.number().min(0),
-});
+const bodyValidator = z.object({ revenue: revenueSchema });
 
 export const POST = async (req: Request) => {
   const { data } = bodyValidator.safeParse(await req.json());
@@ -16,7 +14,7 @@ export const POST = async (req: Request) => {
         type: "error",
         message: "Invalid revenue provided",
       },
-      { status: 400 },
+      { status: 400 }
     );
 
   // otherwise we should be able to calculate the commission and return it to the user
