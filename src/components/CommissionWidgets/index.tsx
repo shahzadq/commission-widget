@@ -166,7 +166,7 @@ const CommissionWidget = (props: {
             />
           </StyledInputWrapper>
           <StyledButton type="submit" disabled={props.isLoading}>
-            Estimate
+            {props.isLoading ? "Calculating..." : "Estimate"}
           </StyledButton>
           {error && <StyledError>{error}</StyledError>}
         </StyledForm>
