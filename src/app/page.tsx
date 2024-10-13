@@ -1,9 +1,9 @@
-import { Widget } from "~/components/Widget";
+import { CommissionWidget } from "~/components/CommissionWidget";
 
 export default function Home() {
   return (
     <div>
-      <Widget />
+      <CommissionWidget />
     </div>
   );
 }
