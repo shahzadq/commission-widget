@@ -1,6 +1,12 @@
 "use client";
 
-import { type ChangeEvent, type FormEvent, useEffect, useState } from "react";
+import {
+  type ChangeEvent,
+  type ComponentProps,
+  type FormEvent,
+  useEffect,
+  useState,
+} from "react";
 import { usePostCalculateCommission } from "~/hooks/usePostCalculateCommission";
 import { revenueSchema } from "~/schemas/commission";
 import { Widget, WidgetTitle } from "~/components/Widgets";
@@ -9,6 +15,7 @@ import Image from "next/image";
 import { Spinner } from "~/components/Spinner";
 import { Data } from "./Data";
 import { Message } from "~/components/Message";
+import { calculateCommissionAction } from "~/actions/commission";
 
 const StyledWidgetContent = styled.div`
   display: flex;
@@ -100,21 +107,19 @@ const StyledError = styled.div`
   margin-top: 8px;
 `;
 
-export const CommissionWidget = () => {
+const CommissionWidget = (props: {
+  isLoading: boolean;
+  error?: string;
+  data?: ComponentProps<typeof Data>;
+  onFormSubmit: (revenue: number) => void;
+}) => {
   const [inputs, setInputs] = useState({ revenue: "" });
-  const [revenue, setRevenue] = useState<number>();
-  const [error, setError] = useState<string>();
-
-  const {
-    data,
-    error: apiError,
-    isLoading,
-  } = usePostCalculateCommission(revenue);
+  const [error, setError] = useState(props.error);
 
   useEffect(() => {
-    // if we get an api error, set it
-    setError(apiError);
-  }, [apiError]);
+    // when the passed error changes, update it locally
+    setError(props.error);
+  }, [props.error]);
 
   const handleInputChange =
     (key: keyof typeof inputs) => (e: ChangeEvent<HTMLInputElement>) => {
@@ -125,7 +130,7 @@ export const CommissionWidget = () => {
     e.preventDefault();
     // only if we have a valid revenue input, change state
     const { success, data } = revenueSchema.safeParse(inputs.revenue);
-    if (success) setRevenue(data);
+    if (success) props.onFormSubmit(data);
     else setError("That doesn't look like a number more than one");
   };
 
@@ -147,10 +152,10 @@ export const CommissionWidget = () => {
           {error && <StyledError>{error}</StyledError>}
         </StyledForm>
         <StyledResultsWrapper>
-          {isLoading ? (
+          {props.isLoading ? (
             <StyledSpinner />
-          ) : data ? (
-            <Data {...data} />
+          ) : props.data ? (
+            <Data {...props.data} />
           ) : (
             <StyledNothingToShow>
               <Image
@@ -165,5 +170,50 @@ export const CommissionWidget = () => {
         </StyledResultsWrapper>
       </StyledWidgetContent>
     </Widget>
+  );
+};
+
+export const ApiCommissionWidget = () => {
+  const [revenue, setRevenue] = useState<number>();
+
+  const { data, error, isLoading } = usePostCalculateCommission(revenue);
+
+  const handleFormSubmit = (revenue: number) => {
+    setRevenue(revenue);
+  };
+
+  return (
+    <CommissionWidget
+      data={data}
+      error={error}
+      isLoading={isLoading}
+      onFormSubmit={handleFormSubmit}
+    />
+  );
+};
+
+export const ServerActionCommissionWidget = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string>();
+  const [data, setData] =
+    useState<ComponentProps<typeof CommissionWidget>["data"]>();
+
+  const handleFormSubmit = async (revenue: number) => {
+    setIsLoading(true);
+    const res = await calculateCommissionAction(revenue);
+    // full type safety with actions which is nice
+    if (res.type === "error") setError(res.message);
+    else setData(res.data);
+
+    setIsLoading(false);
+  };
+
+  return (
+    <CommissionWidget
+      isLoading={isLoading}
+      error={error}
+      data={data}
+      onFormSubmit={handleFormSubmit}
+    />
   );
 };
