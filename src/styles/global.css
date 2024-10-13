@@ -1,3 +1,8 @@
+:root {
+  --border-color: rgba(0, 0, 0, 0.2);
+  --border-regular: 1px solid var(--border-color);
+}
+
 body {
   background-color: rgba(0, 0, 0, 0.1);
 }

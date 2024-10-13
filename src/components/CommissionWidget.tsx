@@ -3,6 +3,7 @@
 import { type FormEvent, useState } from "react";
 import { usePostCalculateCommission } from "~/hooks/usePostCalculateCommission";
 import { revenueSchema } from "~/schemas/commission";
+import { Widget } from "./Widget";
 
 export const CommissionWidget = () => {
   const [inputs, setInputs] = useState({ revenue: "" });
@@ -18,7 +19,7 @@ export const CommissionWidget = () => {
   };
 
   return (
-    <div>
+    <Widget>
       <form onSubmit={handleFormSubmit}>
         <input
           type="number"
@@ -34,6 +35,6 @@ export const CommissionWidget = () => {
         {error && error}
         {data && JSON.stringify(data)}
       </div>
-    </div>
+    </Widget>
   );
 };
