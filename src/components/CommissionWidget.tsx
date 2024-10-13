@@ -1,6 +1,6 @@
 "use client";
 
-import { type FormEvent, useState } from "react";
+import { ChangeEvent, type FormEvent, useState } from "react";
 import { usePostCalculateCommission } from "~/hooks/usePostCalculateCommission";
 import { revenueSchema } from "~/schemas/commission";
 import { Widget, WidgetTitle } from "./Widgets";
@@ -57,6 +57,11 @@ export const CommissionWidget = () => {
 
   const { data, error, isLoading } = usePostCalculateCommission(revenue);
 
+  const handleInputChange =
+    (key: keyof typeof inputs) => (e: ChangeEvent<HTMLInputElement>) => {
+      setInputs((inputs) => ({ ...inputs, [key]: e.target.value }));
+    };
+
   const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // only if we have a valid revenue input, change state
@@ -74,9 +79,7 @@ export const CommissionWidget = () => {
           <StyledInput
             type="number"
             value={inputs.revenue}
-            onChange={(e) => {
-              setInputs((inputs) => ({ ...inputs, revenue: e.target.value }));
-            }}
+            onChange={handleInputChange("revenue")}
           />
         </StyledInputWrapper>
         <StyledButton type="submit">Calculate Commission</StyledButton>
