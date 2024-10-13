@@ -17,6 +17,9 @@ importers:
       react-dom:
         specifier: ^18
         version: 18.3.1(react@18.3.1)
+      ts-mq:
+        specifier: ^1.1.9
+        version: 1.1.9
       zod:
         specifier: ^3.23.8
         version: 3.23.8
@@ -298,6 +301,10 @@ packages:
   stylis@4.3.2:
     resolution: {integrity: sha512-bhtUjWd/z6ltJiQwg0dUfxEJ+W+jdqQd8TbWLWyeIJHlnsqmGLRFFd8e5mA0AZi/zx90smXRlN66YMTcaSFifg==}
 
+  ts-mq@1.1.9:
+    resolution: {integrity: sha512-+1NoghioUtRZk6pWw3h2Xo2nRIOcm+Jley/vK6Orokl7US/EVZaZ5ndpjJ9oORK94gsC3j1wKa/jU8jR6vX6KQ==}
+    engines: {node: '>=v18.18.0'}
+
   tslib@2.6.2:
     resolution: {integrity: sha512-AEYxH93jGFPn/a2iVAwW87VuUIkR1FVUKB77NwMF7nBTDkDrrT/Hpt/IrCJ0QXhW27jTBDcf5ZY7w6RiqTMw2Q==}
 
@@ -524,6 +531,8 @@ snapshots:
       react: 18.3.1
 
   stylis@4.3.2: {}
+
+  ts-mq@1.1.9: {}
 
   tslib@2.6.2: {}
 

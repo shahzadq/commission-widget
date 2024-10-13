@@ -3,6 +3,7 @@
 // hook to implement api fetch and parsing whatever response comes back
 
 import { useEffect, useState, useCallback } from "react";
+import { urlBase } from "~/constants";
 import type { calculateCommission } from "~/helpers/commission";
 
 export const usePostCalculateCommission = (revenue?: number) => {
@@ -15,17 +16,14 @@ export const usePostCalculateCommission = (revenue?: number) => {
     setIsLoading(true);
 
     try {
-      const res = await fetch(
-        "http://localhost:3000/api/calculate-commission",
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ revenue }),
-        }
-      );
+      const res = await fetch(`${urlBase}/api/calculate-commission`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ revenue }),
+      });
 
       const data = await res.json();
 

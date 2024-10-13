@@ -16,13 +16,14 @@ import { Spinner } from "~/components/Spinner";
 import { Data } from "./Data";
 import { Message } from "~/components/Message";
 import { calculateCommissionAction } from "~/actions/commission";
+import { media } from "~/constants";
 
 const StyledWidgetContent = styled.div`
   display: flex;
   flex-direction: column;
   gap: 16px;
 
-  @media screen and (min-width: 700px) {
+  @media ${media.isNotMobile} {
     flex-direction: row;
   }
 `;
