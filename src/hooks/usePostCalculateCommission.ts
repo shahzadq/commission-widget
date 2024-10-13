@@ -2,7 +2,7 @@
 
 // hook to implement api fetch and parsing whatever response comes back
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import type { calculateCommission } from "~/helpers/commission";
 
 export const usePostCalculateCommission = (revenue?: number) => {
@@ -11,7 +11,7 @@ export const usePostCalculateCommission = (revenue?: number) => {
   const [data, setData] = useState<ReturnType<typeof calculateCommission>>();
 
   // we need this function to be seperate from useEffect becuase you cant have an async useeffect callback
-  const handleFetch = async () => {
+  const handleFetch = useCallback(async () => {
     setIsLoading(true);
 
     try {
@@ -33,13 +33,13 @@ export const usePostCalculateCommission = (revenue?: number) => {
     }
 
     setIsLoading(false);
-  };
+  }, [revenue]);
 
   useEffect(() => {
     if (typeof revenue !== "undefined") {
       handleFetch();
     }
-  }, [revenue]);
+  }, [revenue, handleFetch]);
 
   return { isLoading, error, data };
 };
