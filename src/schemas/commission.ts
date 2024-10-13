@@ -1,4 +1,4 @@
 import { z } from "zod";
 
 // cant have a negative revenue
-export const revenueSchema = z.number().min(0);
+export const revenueSchema = z.coerce.number().min(0);
