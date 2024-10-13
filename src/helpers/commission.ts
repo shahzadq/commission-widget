@@ -1,4 +1,4 @@
-import { ArrayElement } from "~/types";
+import type { ArrayElement } from "~/types";
 import { mapKeys } from "~/utils/objects";
 
 const commissionRateToBand = [0, 10, 15, 20, 25] as const;
@@ -22,7 +22,7 @@ export const calculateCommissionBreakdown = (revenue: number) =>
 // calculate total commission by mapping over calculateCommissionBreakdown return
 // and adding together all the values
 export const calculateCommissionTotal = (
-  breakdown: ReturnType<typeof calculateCommissionBreakdown>
+  breakdown: ReturnType<typeof calculateCommissionBreakdown>,
 ) => mapKeys(breakdown, (_, value) => value).reduce((a, v) => (a += v));
 
 // generic function to run both of the above functions more concisely

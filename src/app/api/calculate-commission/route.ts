@@ -16,7 +16,7 @@ export const POST = async (req: Request) => {
         type: "error",
         message: "Invalid revenue provided",
       },
-      { status: 400 }
+      { status: 400 },
     );
 
   // otherwise we should be able to calculate the commission and return it to the user
