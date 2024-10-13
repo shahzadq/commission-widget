@@ -1,8 +1,8 @@
 import { ArrayElement } from "~/types";
 import { mapKeys } from "~/utils/objects";
 
-const commissionRateToBand = [0, 10, 15, 20, 25];
-const bandRange = 5000;
+const commissionRateToBand = [0, 10, 15, 20, 25] as const;
+const bandRange = 5000 as const;
 
 export const calculateCommissionBreakdown = (revenue: number) =>
   commissionRateToBand
