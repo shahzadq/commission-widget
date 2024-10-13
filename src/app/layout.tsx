@@ -1,3 +1,4 @@
+import "~/styles/initialise.css";
 import "~/styles/global.css";
 
 export default function RootLayout({
