@@ -8,7 +8,7 @@ Initially I planned to create a pure react app using `create-react-app`, however
 
 1. Realism. In Next.js I can easily create API endpoints to simulate the scenario more realistically, whereas in a pure react app, I would either have to convert it to a fullstack app with express or develop and deploy a seperate `express` app. As the requirments specify I should submit a single repository and endpoint, alongside the added complexity to development and deployment, I chose against this approach.
 2. Easy to deploy. Next.js is extremely easy to deploy to vercel and I knew this would work without issue, so this was a natural choice.
-3. Added functionality. Next.js extends a lot of react with their own components and conventions. I tried to avoid using this as much as possible so the codebase would be as purely react as possible, so it could be copied to a `create-react-app` project without issue. The only real exceptions are the `app` folder strucutre and file based routing, and my occasional use of the Next.js `Image` component.
+3. Added functionality. Next.js extends a lot of react with their own components and conventions. I tried to avoid using this as much as possible so the codebase would be as purely react as possible, so it could be copied to a `create-react-app` project without issue. The only real exceptions are the `app` folder strucutre and file based routing.
 
 ### Zod
 
